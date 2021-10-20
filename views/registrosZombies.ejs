@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <%- include('includes/head.ejs') %>
+<body>
+    <%- include('includes/header.ejs') %>
+    
+    
+    <div class="container-fluid">
+        
+        <div class="px-lg-5">
+            <h2>Registro de Zombies</h2>
+            <div class="row" id="">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nombre Completo</th>
+                        <th scope="col">Estado Actual</th>
+                        <th scope="col">Fecha de último cambio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% if (lista_zombies.length > 0) { %>
+                        <% for (let zombie of lista_zombies) { %>
+                        <tr>
+                            <td><%= zombie.NombreCompleto %></td>
+                            <td><%= zombie.Estado %></td>
+                            <td><%= zombie.FechaMetamorfosis %></td>
+                        </tr>
+                    </tbody>
+                    <% } %>
+                <% } else { %>
+                    <h3>GRANDIOSO! <br> No hay zombies por el momento</h3>
+                <% } %>
+                  </table>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <%- include('includes/Footer.ejs') %>
+    <!-- <%- include('includes/scriptSearch.ejs') %> -->
+</body>
+</html>
