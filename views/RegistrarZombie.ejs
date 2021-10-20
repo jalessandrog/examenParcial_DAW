@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <%- include('includes/head.ejs') %>
+<body>
+    <%- include('includes/header.ejs') %>
+    
+    
+    <div class="container-fluid">
+        <div class="d-flex justify-content-center h-100">
+            <div class="col-xs-11 col-lg-6 col-sm-9 col-md-7">
+
+                <form action="/add" method="post">
+                    <!-- INPUT DE PROTECCIÓN -->
+
+                    <div class="row mb-3 px-5">
+                        <label for="" class="col-sm-7 col-form-label col-form-label-sm">Nombre Completo de la persona infectada</label>
+                        <div class="col-sm-12">
+                        <input type="text" class="form-control form-control-sm" id="" name="NombreCompleto" placeholder="Ejemplo de Nombre Completo: Joseph Alessandor García García">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 px-5">
+                        <label for="" class="col-sm-7 col-form-label col-form-label-sm">Estado actual</label>
+                        <div class="col-sm-12">
+                            <select class="form-select form-select-sm" id="" name="Estado" required>
+                                <option selected disabled>Elegir Estado</option>
+                                <option value="1">infección</option>
+                                <option value="2">Desorientación</option>
+                                <option value="3">Violencia</option>
+                                <option value="4">Desmayo</option>
+                                <option value="5">Transformación</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="d-grid gap-2 col-9 mx-auto">
+                        <button class="btn btn-danger btn-sm" type="submit">Registrar Persona Infectada</button>
+                        <a href="/" class="btn btn-dark btn-sm" type="button">Cancelar</a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <%- include('includes/Footer.ejs') %>
+    <!-- <%- include('includes/scriptSearch.ejs') %> -->
+</body>
+</html>

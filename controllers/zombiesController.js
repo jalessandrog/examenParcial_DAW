@@ -3,91 +3,77 @@ const Zombie = require('../models/Zombie');
 const controller = {
     index:(req, res, next) => {
         Zombie.fetchAll()
-        .then(([rows, fieldData]) => {
-            res.render('index', {
-                lista_zombies: rows,
+            .then(([rows, fieldData]) => {
+                console.log(rows)
+                res.render('index', {
+                    lista_zombies: rows,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(302).redirect('/error');
             });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(302).redirect('/error');
-        });
     },
 
-    // search:(req, res, next) => {
-    //     // console.log(req.body.query)
-    //     Model.buscar(req.body.query)
-    //         .then(([rows, fieldData]) => {
-    //             res.status(200).json({rows});
-    //         }).catch(err => {
-    //             console.log(err);
-    //             res.status(302).json({error: err});
-    //         });
-    // },
+    add:(req, res, next) => {
+        res.render('RegistrarZombie')
+    },
 
-    // detalle:(req, res, next) => {
-    //     Model.fetchOne(req.params.id)
-    //     .then(([rows, fieldData]) => {
-    //         // console.log(rows);
-    //         res.render('vista', {
-    //             // isLoggedIn: req.session.isLoggedIn,
-    //             // email: req.session.email, 
-    //             lista: rows[0],
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //         res.status(302).redirect('/error');
-    //     });
-    // },
+    processAdd:(req, res, next) => {
+        res.setHeader('Set-Cookie', 'ultimaPersonaInfectadaRegistrada='+req.body.NombreCompleto+'; HttpOnly');
+        console.log('Registrando...'+req.body.NombreCompleto)
+        console.log(req.body)
+        Zombie.registrarZombie(req.body.NombreCompleto)
+            .then( (rows, fieldData) => {
+                console.log(Zombie)
+                Zombie.asignarEstado(rows[0].idZombie, req.body.Estado)
+                    .then(([rows, fieldData]) => {
+                        res.render('vista', {
+                            lista: rows[0],
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(302).redirect('/error');
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(302).redirect('/error');
+            });
+    },
 
-    // add:(req, res, next) => {
-    //     res.render('vista',{ 
-    //     // isLoggedIn: req.session.isLoggedIn,
-    //     // email: req.session.email, 
-    //     })
-    // },
+    update:(req, res, next) => {
+        console.log("Ruta Editar Fase de zombie con ID ")
+        Zombie.fetchOne(req.params.id)
+            .then(([rows, fieldData]) => {
+                res.render('ActualizarRegistro', {
+                    zombie: rows[0],
+                });
+            })
+            .catch(err => {
+                res.status(302).redirect('/error');
+            });
+    },
 
-    // processAdd:(req, res, next) => {
-    //     res.setHeader('Set-Cookie', 'nombreCookie='+req.body.ATRIBUTO+'; HttpOnly');
-    //     const objeto = new Model(req.body.ATRIBUTO, req.body.ATRIBUTO, req.body.ATRIBUTO, "avatar.jpg");
-    //     objeto.save()
-    //         .then( () => {
-    //             res.status(302).redirect('/');
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //             res.status(302).redirect('/error');
-    //         });
-    // },
-
-    // update:(req, res, next) => {
-    //     Model.fetchOne(req.params.id)
-    //     .then(([rows, fieldData]) => {
-    //         // console.log(rows);
-    //         res.render('vista', {
-    //             // isLoggedIn: req.session.isLoggedIn,
-    //             // email: req.session.email, 
-    //             lista: rows[0],
-    //         });
-    //     })
-    //     .catch(err => {
-    //         res.status(302).redirect('/error');
-    //     });
-    // },
-
-    // processUpdate: (req, res, next) => {
-    //     console.log('actualizando...')
-    //     console.log('ID: '+req.params.id+' Correspondiente a: '+req.body.ATRIBUTO)
-    //     Model.update(req.body.ATRIBUTO, req.body.ATRIBUTO, req.body.ATRIBUTO, "avatar.jpg", req.params.id)
-    //         .then( () => {
-    //             console.log('Actualización con exito!!')
-    //             res.status(302).redirect('/');
-    //         })
-    //         .catch(err => {
-    //             res.status(302).redirect('/error');
-    //         });
-    // },
+    processUpdate: (req, res, next) => {
+        
+        console.log("Ruta Procesando Actualización de Fase")
+        console.log('actualizando Fase...')
+        console.log('ID: '+ +' Correspondiente a: '+req.body.NombreCompleto)
+        
+        console.log(req.body)
+        Zombie.updateFase(req.params.id, req.body.Estado)
+            .then( () => {
+                console.log('Actualización con exito')
+                res.status(302).redirect('/');
+            })
+            .catch(err => {
+                console.log(err);
+                console.log('Error al actualizar Fase')
+                res.status(302).redirect('/error');
+            });
+    },
 
     error:(req, res, next) => {
         res.render('error')

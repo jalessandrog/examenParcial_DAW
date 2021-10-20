@@ -2,34 +2,32 @@ const db = require('../util/database');
 
 module.exports = class zombie {
 
-    constructor(NombreCompleto, Estado, idFases) {
-        this.NombreCompleto = NombreCompleto;
-        this.Estado = Estado;
-        this.idFases = idFases;
-    }
 
     //* Este método servirá para guardar de manera persistente el nuevo objeto. 
-    // save(NombreCompleto, Estado, idFases) {
-    //     return db.execute('INSERT INTO zombie (NombreCompleto, Estado, idFases) VALUES (?, ?, ?)',[NombreCompleto, Estado, idFases]).then(()=>{
-    //         return db.execute ('INSERT INTO historialfases (FechaMetamorfosis) VALUES (NOW())')
-    //     })
+    static registrarZombie(NombreCompleto) {
+        return db.execute('INSERT INTO zombie (NombreCompleto) VALUES (?)',[NombreCompleto])
+    }
+
+    // static asignarEstado(idZombie, idEstado) {
+    //     return db.execute('INSERT INTO historial (idZombie, idEstado) VALUES (?,?, NOW())',[idZombie, idEstado])
     // }
 
     static fetchAll() {
-        return db.execute('SELECT zombie.NombreCompleto, zombie.Estado, historialfases.FechaMetamorfosis  FROM zombie, historialfases WHERE zombie.idFases = historialfases.idFases')
+        return db.execute('SELECT zombie.NombreCompleto, estados.Estado, historial.FechaMetamorfosis FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado')
     }
 
-    // static update(id, nombre, profesion, pais, resenia){
-    //     return db.execute('UPDATE heroes SET nombre = ?, profesion = ?, pais = ?, resenia = ? WHERE id = ? ',
-    //         [id, nombre, profesion, pais, resenia]);
-    // }
+    static fetchOne(idZombie){ 
+        return db.execute('SELECT zombie.NombreCompleto, estados.Estado, historial.FechaMetamorfosis FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado AND zombie.idZombie = ?', [idZombie])
+    }
 
 
-    // static fetchOne(id){
-    //     return db.execute('SELECT * FROM data_base WHERE id = ?', [id]);
-    // }
+    static estadisticas(){
+        return db.execute ('SELECT COUNT(historial.idEstado) as "Numero Infectados" FROM historial, zombie, estados WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado GROUP BY historial.idEstado HAVING COUNT(historial.idEstado) AND historial.idEstado = 1')
+    }
 
-    // static buscar(query){
-    //     return db.execute('SELECT * FROM data_base WHERE atributo1 LIKE ? OR atributo2 LIKE ? OR atributo3 LIKE ? ', ['%'+query+'%', '%'+query+'%', '%'+query+'%']);
-    // }
+
+    // UPDATE
+    static updateFase(idZombie, idEstado){
+        return db.execute('CALL updateFase (?, ?, NOW())',  [idZombie, idEstado])
+    }
 }

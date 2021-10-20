@@ -4,11 +4,11 @@ const router = express.Router();
 // const isAuth = require('../middlewares/is-Auth');
 const zombiesController = require('../controllers/zombiesController')
 
-// router.get('/add', isAuth, nameController.add);
-// router.post('/add', isAuth, nameController.processAdd);
+router.get('/add', zombiesController.add);
+router.post('/add', zombiesController.processAdd);
 
-// router.get('/editar/:id', isAuth, nameController.update);
-// router.post('/editar/:id', isAuth, nameController.processUpdate);
+router.get('/editar/:id', zombiesController.update);
+router.post('/editar/:id', zombiesController.processUpdate);
 
 // router.post('/search', nameController.search);
 
