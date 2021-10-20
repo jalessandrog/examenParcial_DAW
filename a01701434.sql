@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-10-2021 a las 19:52:42
+-- Tiempo de generación: 20-10-2021 a las 21:43:13
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -104,9 +104,15 @@ CREATE TABLE `historial` (
 
 INSERT INTO `historial` (`idZombie_Estado`, `idZombie`, `idEstado`, `FechaMetamorfosis`) VALUES
 (1, 1, 2, '2021-10-20 17:05:35'),
-(2, 2, 2, '2021-10-20 17:05:35'),
+(2, 2, 5, '2021-10-20 18:02:30'),
 (4, 3, 5, '2021-10-20 17:05:35'),
-(5, 9, 2, '2021-10-20 17:29:56');
+(5, 9, 2, '2021-10-20 17:29:56'),
+(6, 2, 2, '2021-10-20 18:17:03'),
+(7, 2, 1, '2021-10-20 18:17:03'),
+(8, 10, 3, '2021-10-20 19:04:30'),
+(9, 11, 1, '2021-10-20 19:05:08'),
+(10, 12, 4, '2021-10-20 19:05:32'),
+(11, 13, 5, '2021-10-20 19:06:03');
 
 -- --------------------------------------------------------
 
@@ -127,7 +133,11 @@ INSERT INTO `zombie` (`idZombie`, `NombreCompleto`) VALUES
 (1, 'David Hernán Fernández García'),
 (2, 'Joseph Alessandro García García'),
 (3, 'Ricardo C'),
-(9, 'Joseph en el examen');
+(9, 'Joseph en el examen'),
+(10, 'Eduardo García Rogón'),
+(11, 'Jorge '),
+(12, 'Franco G'),
+(13, 'Agustin D');
 
 -- --------------------------------------------------------
 
@@ -194,13 +204,13 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `idZombie_Estado` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idZombie_Estado` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `zombie`
 --
 ALTER TABLE `zombie`
-  MODIFY `idZombie` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idZombie` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
