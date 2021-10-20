@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <%- include('includes/head.ejs') %>
+<body>
+    <%- include('includes/header.ejs') %>
+    
+    
+    <div class="container-fluid">
+        
+        <div class="px-lg-5">
+            <h2><%= zombie.NombreCompleto %></h2>
+            <div class="row" id="">
+                
+                <% if (lista_Estados.length > 0) { %>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Fase</th>
+                        <th scope="col">Fecha de cambio</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <% for (let estado of lista_Estados) { %>
+                        <tr>
+                            <td><%= estado.Estado %></td>
+                            <td><%= estado.FechaMetamorfosis %></td>
+                        </tr>
+                    </tbody>
+                        <% } %>
+                <% } else { %>
+                    <h3>GRANDIOSO! <br>No ha avanzado la evolución</h3>
+                <% } %>
+                </table>
+            </div>
+        </div>
+    </div>
+    <%- include('includes/Footer.ejs') %>
+    <!-- <%- include('includes/scriptSearch.ejs') %> -->
+</body>
+</html>

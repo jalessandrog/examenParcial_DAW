@@ -10,10 +10,6 @@ module.exports = class zombie {
         })
     }
 
-    // static asignarEstado(idZombie, idEstado) {
-    //     return db.execute('INSERT INTO historial (idZombie, idEstado) VALUES (?,?, NOW())',[idZombie, idEstado])
-    // }
-
     static fetchAll() {
         return db.execute('SELECT zombie.idZombie, zombie.NombreCompleto, estados.Estado, historial.FechaMetamorfosis FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado GROUP BY zombie.NombreCompleto')
     }
@@ -27,8 +23,12 @@ module.exports = class zombie {
     }
 
 
-    static estadisticas(){
-        return db.execute ('SELECT COUNT(historial.idEstado) as "Numero Infectados" FROM historial, zombie, estados WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado GROUP BY historial.idEstado HAVING COUNT(historial.idEstado) AND historial.idEstado = 1')
+    static estadisticas(idEstado){
+        return db.execute ('SELECT COUNT(historial.idEstado) as "NumeroInfectados" FROM historial, zombie, estados WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado GROUP BY historial.idEstado HAVING COUNT(historial.idEstado) AND historial.idEstado = ?',[idEstado])
+    }
+
+    static totalZombie(){
+        return db.execute('SELECT COUNT(idZombie) as "totalZombies" FROM zombie')
     }
 
 

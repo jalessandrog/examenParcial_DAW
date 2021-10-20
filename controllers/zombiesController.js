@@ -2,17 +2,42 @@ const Zombie = require('../models/Zombie');
 
 const controller = {
     index:(req, res, next) => {
-        Zombie.fetchAll()
+        Zombie.totalZombie()
+        .then(([total, fieldData]) => {
+            console.log(total)
+            Zombie.fetchAll()
             .then(([rows, fieldData]) => {
                 console.log(rows)
-                res.render('index', {
-                    lista_zombies: rows,
-                });
+                Zombie.estadisticas(1)
+                .then(([infeccion, fieldData])=>{
+                    Zombie.estadisticas(2)
+                    .then(([desorientado, fieldData])=>{
+                        Zombie.estadisticas(3)
+                        .then(([violencia, fieldData])=>{
+                            Zombie.estadisticas(4)
+                            .then(([desmayo, fieldData])=>{
+                                Zombie.estadisticas(5)
+                                .then(([transformacion, fieldData])=>{
+                                    res.render('index', {
+                                        total: total[0],
+                                        lista_zombies: rows,
+                                        infeccion: infeccion[0],
+                                        desorientado: desorientado[0],
+                                        violencia:violencia[0],
+                                        desmayo:desmayo[0],
+                                        transformacion:transformacion[0]
+                                    });
+                                })
+                            })
+                        })
+                    })
+                })
             })
-            .catch(err => {
+        })
+        .catch(err => {
                 console.log(err);
                 res.status(302).redirect('/error');
-            });
+        });
     },
 
     registrosZombies:(req, res, next) => {
@@ -40,7 +65,7 @@ const controller = {
         Zombie.registrarZombie(req.body.NombreCompleto, req.body.Estado)
             .then( () => {
                 console.log('Registro con exito')
-                res.status(302).redirect('/');
+                res.status(302).redirect('/registros');
             })
             .catch(err => {
                 console.log(err);
