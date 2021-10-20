@@ -28,11 +28,11 @@ app.use(session({
     saveUninitialized: false, //Asegura que no se guarde una sesión para una petición que no lo necesita
 }));
 
-// app.use(csrfProtection); 
-// app.use((req, res, next) => {
-//     res.locals.csrfToken = req.csrfToken();
-//     next();
-// });
+app.use(csrfProtection); 
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 //---------------Rutas-----------------
 app.use('/', zombieRouter);

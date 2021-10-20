@@ -13,15 +13,19 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th scope="row"></th>
                         <th scope="col">Nombre Completo</th>
                         <th scope="col">Estado Actual</th>
                         <th scope="col">Fecha de último cambio</th>
-                      </tr>
+                    </tr>
                     </thead>
                     <tbody>
                     <% if (lista_zombies.length > 0) { %>
                         <% for (let zombie of lista_zombies) { %>
                         <tr>
+                            <td>
+                                <a href='/historial/<%= zombie.idZombie %>' class="btn btn-dark btn-sm" type="button">Historial de evolucion</a>
+                            </td>
                             <td><%= zombie.NombreCompleto %></td>
                             <td><%= zombie.Estado %></td>
                             <td><%= zombie.FechaMetamorfosis %></td>
@@ -39,6 +43,6 @@
 
     </div>
     <%- include('includes/Footer.ejs') %>
-    <!-- <%- include('includes/scriptSearch.ejs') %> -->
+    <%- include('includes/scriptSearch.ejs') %>
 </body>
 </html>

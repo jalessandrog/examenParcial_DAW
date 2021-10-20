@@ -4,6 +4,7 @@ const router = express.Router();
 // const isAuth = require('../middlewares/is-Auth');
 const zombiesController = require('../controllers/zombiesController')
 
+router.get('/historial/:id', zombiesController.historial);
 router.get('/add', zombiesController.add);
 router.post('/add', zombiesController.processAdd);
 
@@ -12,7 +13,7 @@ router.post('/editar/:id', zombiesController.processUpdate);
 
 // router.post('/search', nameController.search);
 
-// router.get('/detalle/:id', nameController.detalle);
+
 router.get('/', zombiesController.index);
 router.get('/registros', zombiesController.registrosZombies);
 

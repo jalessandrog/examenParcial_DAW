@@ -15,11 +15,15 @@ module.exports = class zombie {
     // }
 
     static fetchAll() {
-        return db.execute('SELECT zombie.NombreCompleto, estados.Estado, historial.FechaMetamorfosis FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado')
+        return db.execute('SELECT zombie.idZombie, zombie.NombreCompleto, estados.Estado, historial.FechaMetamorfosis FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado GROUP BY zombie.NombreCompleto')
     }
 
     static fetchOne(idZombie){ 
         return db.execute('SELECT zombie.NombreCompleto, estados.Estado, historial.FechaMetamorfosis FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado AND zombie.idZombie = ?', [idZombie])
+    }
+
+    static historialEstados(idZombie){
+        return db.execute('SELECT historial.idZombie, historial.idEstado, historial.FechaMetamorfosis, estados.Estado FROM historial, zombie, estados WHERE historial.idZombie = zombie.idZombie AND estados.idEstado = historial.idEstado AND  historial.idZombie = ?',[idZombie])
     }
 
 

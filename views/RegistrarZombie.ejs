@@ -11,6 +11,7 @@
 
                 <form action="/add" method="post">
                     <!-- INPUT DE PROTECCIÓN -->
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" >
 
                     <div class="row mb-3 px-5">
                         <label for="" class="col-sm-7 col-form-label col-form-label-sm">Nombre Completo de la persona infectada</label>

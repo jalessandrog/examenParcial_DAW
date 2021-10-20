@@ -48,6 +48,30 @@ const controller = {
             });
     },
 
+    historial:(req, res, next) => {
+        console.log('Ruta Historial Clinico')
+        Zombie.fetchOne(req.params.id)
+        .then(([rows, fieldData]) => {
+            console.log(rows);
+            Zombie.historialEstados(req.params.id)
+            .then(([estados, fieldData])=>{
+                console.log(estados)
+                res.render('historialClinico', {
+                    zombie: rows[0],
+                    lista_Estados: estados,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(302).redirect('/error');
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(302).redirect('/error');
+        });
+    },
+
     update:(req, res, next) => {
         console.log("Ruta Editar Fase de zombie con ID ")
         Zombie.fetchOne(req.params.id)
