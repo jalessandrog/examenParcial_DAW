@@ -1,45 +1,47 @@
 <script>
-    document.getElementById('   ').onkeyup = () => {
-        // console.log(document.getElementById('').value)
+    document.getElementById('buscar').onkeyup = () => {
+        console.log(document.getElementById('buscar').value)
 
         //El token de protección CSRF
         const csrf = document.getElementById('_csrf').value;
         // console.log(csrf)
 
-        fetch('', { // fetch('/ruta', {
+        fetch('/search', { // fetch('/ruta', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'csrf-token': csrf
             },
             body: JSON.stringify({
-                query: document.getElementById('   ').value
+                query: document.getElementById('buscar').value
             })
         }).then(result => {
             return result.json(); //Regresa otra promesa
         }).then(data => {
-            // console.log(data.rows)
+            console.log(data.rows)
             data = data.rows;
             let contenido = "";
 
             if (data.length > 0) { 
-                for (let item of data) { 
+                for (let zombie of data) { 
             
-                    // contenido  +=  '<div class="card bg-secondary text-white" style="width:400px; margin: 1rem;">';
-                    // contenido  +=   '<img class="card-img-top" src="/images/'+ (heroe.imagen  === null ? '' : heroe.imagen) +'" alt="Card image" style="width:350px; height: 270px;">';
-                    // contenido  +=   '<div class="card-body">';
-                    // contenido  +=   '<h4 class="card-title">'+ heroe.nombre +'</h4>';
-                    // contenido  +=   '<a id="heroe" href="/detalle/'+ heroe.id +'" class="btn btn-dark">Ver información</a>';
-                    // contenido  +=   '</div>';
-                    // contenido  +=   '</div>';
+                    contenido  += '<tr>';
+                    contenido  +=  '<td>';
+                    contenido  += '<a href="/historial/'+ zombie.idZombie +'" class="btn btn-dark btn-sm" type="button">Historial de evolucion</a>';
+                    contenido  += '</td>';
+                    contenido  += '<td>'+ zombie.NombreCompleto +'</td>';
+                    contenido  += '<td>'+ zombie.Estado +'</td>';
+                    contenido  += '<td>'+ zombie.FechaMetamorfosis +'</td>';
+                    contenido  += '</tr>';
+                    contenido  += '</tbody>';
                 } 
             } else {
-                contenido  +=   '<h3>No hay heroes que coincidan en la busqueda</h3>';
+                contenido  +=   '<h3>No hay zombies que coincidan en la busqueda</h3>';
                 contenido  +=   '<br />';
                 contenido  +=   '<br />';
             }
 
-            document.getElementById('   ').innerHTML = contenido;
+            document.getElementById('buscar').innerHTML = contenido;
         }).catch(err => {
             console.log(err);
         });

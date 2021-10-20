@@ -11,7 +11,7 @@ router.post('/add', zombiesController.processAdd);
 router.get('/editar/:id', zombiesController.update);
 router.post('/editar/:id', zombiesController.processUpdate);
 
-// router.post('/search', nameController.search);
+router.post('/search', zombiesController.search);
 
 
 router.get('/', zombiesController.index);

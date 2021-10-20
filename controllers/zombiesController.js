@@ -111,7 +111,6 @@ const controller = {
     },
 
     processUpdate: (req, res, next) => {
-        
         console.log("Ruta Procesando Actualización de Fase")
         console.log('actualizando Fase...')
         console.log('ID: '+ +' Correspondiente a: '+req.body.NombreCompleto)
@@ -126,6 +125,17 @@ const controller = {
                 console.log(err);
                 console.log('Error al actualizar Fase')
                 res.status(302).redirect('/error');
+            });
+    },
+
+    search:(req, res, next) => {
+        console.log(req.body.query)
+        Zombie.buscar(req.body.query)
+            .then(([rows, fieldData]) => {
+                res.status(200).json({rows});
+            }).catch(err => {
+                console.log(err);
+                res.status(302).json({error: err});
             });
     },
 

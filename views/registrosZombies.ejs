@@ -8,6 +8,15 @@
     <div class="container-fluid">
         
         <div class="px-lg-5">
+            <input type="hidden" name="_csrf" id="_csrf" value="<%= csrfToken %>" >
+            <div class="row mb-3 px-5">
+                <label for="" class="col-sm-7 col-form-label col-form-label-sm">Buscar</label>
+                <div class="col-sm-12">
+                <input type="text" class="form-control form-control-sm" id="buscar" name="search" placeholder="Buscar">
+                </div>
+            </div>
+            <br>
+
             <h2>Registro de Zombies</h2>
             <div class="row" id="">
                 <table class="table">

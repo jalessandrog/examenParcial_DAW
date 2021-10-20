@@ -31,6 +31,10 @@ module.exports = class zombie {
         return db.execute('SELECT COUNT(idZombie) as "totalZombies" FROM zombie')
     }
 
+    static buscar(query){
+        return db.execute('SELECT zombie.NombreCompleto, estados.Estado FROM zombie, estados, historial WHERE zombie.idZombie = historial.idZombie AND estados.idEstado = historial.idEstado AND zombie.NombreCompleto LIKE ? OR estados.Estado LIKE ?', ['%'+query+'%', '%'+query+'%']);
+    }
+
 
     // UPDATE
     static updateFase(idZombie, idEstado){
