@@ -9,6 +9,9 @@
         
         <div class="px-lg-5">
             <h3>Estadisticas Actuales</h3>
+            <hr>
+
+            <hr>
             <div class="input-group">
                 <span class="input-group-text">infección</span>
                 <input type="text" aria-label="First name" class="form-control"  readonly>
@@ -22,30 +25,7 @@
                 <input type="text" aria-label="Last name" class="form-control" readonly>
             </div>
             <hr>
-            <h2>Registro de Zombies</h2>
-            <div class="row" id="">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nombre Completo</th>
-                        <th scope="col">Estado Actual</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <% if (lista_zombies.length > 0) { %>
-                        <% for (let zombie of lista_zombies) { %>
-                        <tr>
-                            <td><%= zombie.NombreCompleto %></td>
-                            <td><%= zombie.Estado %></td>
-                        </tr>
-                    </tbody>
-                    <% } %>
-                <% } else { %>
-                    <h3>GRANDIOSO! <br> No hay zombies por el momento</h3>
-                <% } %>
-                  </table>
-            </div>
-        </div>
+            
 
         
 

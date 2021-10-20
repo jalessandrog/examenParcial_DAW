@@ -15,6 +15,20 @@ const controller = {
             });
     },
 
+    registrosZombies:(req, res, next) => {
+        Zombie.fetchAll()
+            .then(([rows, fieldData]) => {
+                console.log(rows)
+                res.render('registrosZombies', {
+                    lista_zombies: rows,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(302).redirect('/error');
+            });
+    },
+
     add:(req, res, next) => {
         res.render('RegistrarZombie')
     },

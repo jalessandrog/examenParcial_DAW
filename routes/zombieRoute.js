@@ -14,6 +14,7 @@ router.post('/editar/:id', zombiesController.processUpdate);
 
 // router.get('/detalle/:id', nameController.detalle);
 router.get('/', zombiesController.index);
+router.get('/registros', zombiesController.registrosZombies);
 
 router.get('/error', zombiesController.error);
 
