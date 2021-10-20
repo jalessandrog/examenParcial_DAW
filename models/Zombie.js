@@ -4,8 +4,10 @@ module.exports = class zombie {
 
 
     //* Este método servirá para guardar de manera persistente el nuevo objeto. 
-    static registrarZombie(NombreCompleto) {
-        return db.execute('INSERT INTO zombie (NombreCompleto) VALUES (?)',[NombreCompleto])
+    static registrarZombie(NombreCompleto, idEstado) {
+        return db.execute('INSERT INTO zombie (NombreCompleto) VALUES (?)',[NombreCompleto]).then(()=>{
+            return db.execute('INSERT INTO historial (idZombie, idEstado, FechaMetamorfosis) VALUES (last_insert_id(), ?, NOW())',[idEstado])
+        })
     }
 
     // static asignarEstado(idZombie, idEstado) {

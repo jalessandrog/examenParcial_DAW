@@ -23,19 +23,10 @@ const controller = {
         res.setHeader('Set-Cookie', 'ultimaPersonaInfectadaRegistrada='+req.body.NombreCompleto+'; HttpOnly');
         console.log('Registrando...'+req.body.NombreCompleto)
         console.log(req.body)
-        Zombie.registrarZombie(req.body.NombreCompleto)
-            .then( (rows, fieldData) => {
-                console.log(Zombie)
-                Zombie.asignarEstado(rows[0].idZombie, req.body.Estado)
-                    .then(([rows, fieldData]) => {
-                        res.render('vista', {
-                            lista: rows[0],
-                        });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        res.status(302).redirect('/error');
-                    });
+        Zombie.registrarZombie(req.body.NombreCompleto, req.body.Estado)
+            .then( () => {
+                console.log('Registro con exito')
+                res.status(302).redirect('/');
             })
             .catch(err => {
                 console.log(err);
