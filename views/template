@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <%- include('includes/head.ejs') %>
+<body>
+    <%- include('includes/header.ejs') %>
+    
+    
+    <div class="container-fluid">
+        
+        <div class="px-lg-5">
+            
+            <!-- <%- include('includes/search.ejs') %> -->
+            
+            <div class="row" id="">
+                <!-- <% if (lista.length > 0) { %>
+                    <% for (let '' of lista) { %> -->
+                <!-- List-->
+                
+                <!-- End -->
+                    <!-- <% } %>
+                <% } else { %>
+                    <h3> </h3>
+                <% } %> -->
+            </div>
+        </div>
+    </div>
+    <%- include('includes/Footer.ejs') %>
+    <!-- <%- include('includes/scriptSearch.ejs') %> -->
+</body>
+</html>
